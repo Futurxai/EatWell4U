@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { LogOut, CalendarDays, Edit2, Scale, Target, User, Check, X, Camera, Moon, Sun, Menu } from 'lucide-react';
-import { useAppContext, useColors } from '../context/AppContext';
+import { useAppContext, useColors, useIsMobile } from '../context/AppContext';
 import { ChipSelector } from '../components/ChipSelector';
 import { AppButton } from '../components/AppButton';
 import { AppInput } from '../components/AppInput';
@@ -98,6 +98,7 @@ export function ProfileScreen() {
   const location = useLocation();
   const { profile, setProfile, darkMode, setDarkMode, setDrawerOpen } = useAppContext();
   const C = useColors();
+  const isMobile = useIsMobile();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({ ...profile });
@@ -187,23 +188,24 @@ export function ProfileScreen() {
           transition: 'background 0.3s',
         }}
       >
-        {/* Hamburger — opens sidebar drawer on DESKTOP only (hidden on mobile via CSS) */}
-        <button
-          onClick={() => setDrawerOpen(true)}
-          className="hidden md:flex"
-          style={{
-            width: 38, height: 38, borderRadius: 11,
-            background: `linear-gradient(135deg, #4CAF50, #388E3C)`,
-            border: 'none', cursor: 'pointer',
-            alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 3px 10px rgba(76,175,80,0.35)',
-          }}
-          title="Open navigation"
-        >
-          <Menu size={18} color="white" strokeWidth={2.5} />
-        </button>
-        {/* Spacer where hamburger would be on mobile */}
-        <div className="md:hidden" style={{ width: 38 }} />
+        {/* Left side: hamburger (desktop) or spacer (mobile) */}
+        {isMobile ? (
+          <div style={{ width: 38 }} />
+        ) : (
+          <button
+            onClick={() => setDrawerOpen(true)}
+            style={{
+              width: 38, height: 38, borderRadius: 11,
+              background: `linear-gradient(135deg, #4CAF50, #388E3C)`,
+              border: 'none', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 3px 10px rgba(76,175,80,0.35)',
+            }}
+            title="Open navigation"
+          >
+            <Menu size={18} color="white" strokeWidth={2.5} />
+          </button>
+        )}
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           {/* Dark mode quick toggle */}
