@@ -68,3 +68,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Keystore (keep private!)
+/keystore/
+*.keystore
+
+# APK builds
+*.apk
+
+# Firebase
+.firebase/
