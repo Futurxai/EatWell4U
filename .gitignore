@@ -1,38 +1,23 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-
-*~
-*.sw[mnpcod]
-.tmp
-*.tmp
-*.tmp.*
-UserInterfaceState.xcuserstate
-$RECYCLE.BIN/
-
-*.log
-log.txt
-
-
-/.sourcemaps
-/.versions
-/coverage
-
-# Ionic
-/.ionic
-/www
-/platforms
-/plugins
+# Dependencies
+/node_modules
+npm-debug.log
+yarn-error.log
 
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/www
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Ionic
+/.ionic
+/platforms
+/plugins
+
+# Angular
+/.angular
+/.angular/cache
 
 # IDEs and editors
 .idea/
@@ -43,8 +28,6 @@ yarn-error.log
 .settings/
 *.sublime-project
 *.sublime-workspace
-
-# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -52,29 +35,56 @@ yarn-error.log
 !.vscode/extensions.json
 .history/*
 
-
 # Miscellaneous
-/.angular
-/.angular/cache
-.sass-cache/
 /.nx
 /.nx/cache
-/connect.lock
+/.sourcemaps
+/.versions
 /coverage
+/connect.lock
 /libpeerconnection.log
 testem.log
 /typings
+.sass-cache/
 
 # System files
 .DS_Store
 Thumbs.db
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+$RECYCLE.BIN/
+*.log
+log.txt
 
 # Keystore (keep private!)
 /keystore/
 *.keystore
+*.jks
 
 # APK builds
 *.apk
+*.aab
 
 # Firebase
 .firebase/
+
+# Android build outputs
+/android/app/build/
+/android/.gradle/
+/android/build/
+/android/capacitor-cordova-android-plugins/build/
+/android/capacitor-android/build/
+
+# Firebase config (contains API keys)
+/android/app/google-services.json
+
+# Environment secrets
+*.env
+.env.local
+.env.production
+
+# Test
+/coverage
