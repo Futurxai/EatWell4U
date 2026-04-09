@@ -78,3 +78,12 @@
   background: var(--green-light); color: var(--green); font-size: 12px;
   font-weight: 600; padding: 4px 10px; border-radius: 20px;
 }
+
+.premium-banner {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: linear-gradient(135deg, #fffbe6 0%, #fff5cc 100%) !important;
+  border: 1.5px solid #f0d060 !important;
+}

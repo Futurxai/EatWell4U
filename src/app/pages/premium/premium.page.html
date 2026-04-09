@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile" text="" icon="arrow-back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>EatWell Premium</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="premium-content">
+
+  <!-- Already Premium -->
+  <div *ngIf="isPremium" class="premium-active">
+    <div class="premium-badge">✓</div>
+    <h2>You're Premium!</h2>
+    <p>All features are unlocked. Enjoy EatWell.</p>
+    <ion-button expand="block" fill="outline" (click)="goBack()">
+      Back to Profile
+    </ion-button>
+  </div>
+
+  <!-- Not Premium -->
+  <div *ngIf="!isPremium">
+
+    <!-- Hero -->
+    <div class="premium-hero">
+      <div class="hero-icon">👑</div>
+      <h1>Go Premium</h1>
+      <p class="hero-subtitle">Unlock everything. One time. Forever.</p>
+    </div>
+
+    <!-- Price Card -->
+    <div class="price-card">
+      <div class="price-old">₹499</div>
+      <div class="price-current">{{ price }}</div>
+      <div class="price-label">One-time purchase • No subscription</div>
+      <div class="price-tag">60% OFF — Limited Time</div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-list">
+      <h3>Everything you get:</h3>
+      <div class="feature-item" *ngFor="let f of features">
+        <span class="feature-icon">{{ f.icon }}</span>
+        <div class="feature-text">
+          <strong>{{ f.title }}</strong>
+          <p>{{ f.desc }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-methods">
+      <p class="methods-label">Pay with</p>
+      <div class="methods-row">
+        <span class="method">UPI</span>
+        <span class="method">Google Pay</span>
+        <span class="method">PhonePe</span>
+        <span class="method">Cards</span>
+      </div>
+    </div>
+
+    <!-- Buy Button -->
+    <div class="buy-section">
+      <ion-button
+        expand="block"
+        class="buy-button"
+        (click)="buyPremium()"
+        [disabled]="isLoading">
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Unlock Premium — {{ price }}</span>
+      </ion-button>
+      <p class="guarantee">🔒 Secure payment via Razorpay • 7-day refund guarantee</p>
+    </div>
+
+  </div>
+
+</ion-content>

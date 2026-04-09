@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
+        path: 'premium',
+        loadChildren: () => import('../pages/premium/premium.module').then(m => m.PremiumPageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
