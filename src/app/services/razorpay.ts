@@ -51,6 +51,30 @@ export class RazorpayService {
           contact: '',
           email: ''
         },
+        config: {
+          display: {
+            blocks: {
+              upi: {
+                name: 'Pay via UPI',
+                instruments: [
+                  { method: 'upi', flows: ['qrcode', 'collect', 'intent'] }
+                ]
+              },
+              other: {
+                name: 'Other Methods',
+                instruments: [
+                  { method: 'card' },
+                  { method: 'netbanking' },
+                  { method: 'wallet' }
+                ]
+              }
+            },
+            sequence: ['block.upi', 'block.other'],
+            preferences: {
+              show_default_blocks: true
+            }
+          }
+        },
         theme: {
           color: '#1D9E75'
         },
