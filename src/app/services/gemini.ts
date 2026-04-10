@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StateService } from './state';
+import { environment } from '../../environments/environment';
 
 export interface ChatMessage {
   role: 'user' | 'ai';
@@ -12,8 +13,8 @@ export interface ChatMessage {
 })
 export class GeminiService {
 
-  private apiKey = 'AIzaSyDVmi5oT0hD8M93aHQoJHbpHwk4qNbzoY4';
-  private apiUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  private apiKey = environment.groqApiKey;
+  private apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
   private chatHistory: ChatMessage[] = [];
 
   constructor(private state: StateService) {}
@@ -60,33 +61,30 @@ RULES:
     });
 
     try {
-      const messages = this.chatHistory.map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.text }]
-      }));
-
-      // Add system prompt as first message
-      const contents = [
-        { role: 'user', parts: [{ text: this.getSystemPrompt() }] },
-        { role: 'model', parts: [{ text: 'I understand! I\'m EatWell AI, your friendly Indian nutrition assistant. How can I help you eat healthy today? 🍽️' }] },
-        ...messages
+      const messages = [
+        { role: 'system', content: this.getSystemPrompt() },
+        ...this.chatHistory.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.text
+        }))
       ];
 
-      const response = await fetch(`${this.apiUrl}?key=${this.apiKey}`, {
+      const response = await fetch(this.apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.apiKey}`
+        },
         body: JSON.stringify({
-          contents,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 300,
-            topP: 0.9
-          }
+          model: 'llama-3.3-70b-versatile',
+          messages,
+          temperature: 0.7,
+          max_tokens: 300
         })
       });
 
       const data = await response.json();
-      const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text
+      const aiText = data?.choices?.[0]?.message?.content
         || 'Sorry, I couldn\'t process that. Try asking about meals or nutrition! 🍎';
 
       this.chatHistory.push({

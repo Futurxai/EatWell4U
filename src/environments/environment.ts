@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  groqApiKey: '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',
   firebase: {
     apiKey: 'AIzaSyBcNtRvDsL-iQPVH1HvUXc3lcmHJIeOkVw',
     authDomain: 'eatwell-5eaf0.firebaseapp.com',
