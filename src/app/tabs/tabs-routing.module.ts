@@ -28,6 +28,10 @@ const routes: Routes = [
         loadChildren: () => import('../pages/premium/premium.module').then(m => m.PremiumPageModule)
       },
       {
+        path: 'chat',
+        loadChildren: () => import('../pages/chat/chat.module').then(m => m.ChatPageModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
